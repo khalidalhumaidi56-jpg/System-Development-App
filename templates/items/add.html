@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h3>Add New Item</h3>
+            <hr>
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Item Title</label>
+                    <input type="text" name="title" class="form-control" placeholder="e.g. Groceries" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description (will be translated)</label>
+                    <textarea name="description" class="form-control" rows="3" placeholder="Describe your item..."></textarea>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Save to Cloud</button>
+                    <a href="{{ url_for('items.list_items') }}" class="btn btn-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

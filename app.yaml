@@ -1,0 +1,11 @@
+runtime: python310
+entrypoint: gunicorn -b :$PORT app:app
+
+env_variables:
+  SECRET_KEY: "your_secret_key_here"
+  DB_USER: "app_user"
+  DB_PASS: "AppPass123!"
+  DB_NAME: "sys_dev_db"
+  DB_HOST: "/cloudsql/just-stock-483516-q9:europe-west2:main-db-instance"
+  GOOGLE_CLOUD_PROJECT: "just-stock-483516-q9"
+  TRANSLATE_FUNCTION_URL: "https://translate-item-9398624084.europe-west2.run.app"
