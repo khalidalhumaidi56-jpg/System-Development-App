@@ -1,19 +1,20 @@
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
+from sqlalchemy.orm import sessionmaker, declarative_base
 
-load_dotenv()
-
-DB_USER = os.getenv("DB_USER")
-DB_PASS = os.getenv("DB_PASS")
-DB_HOST = os.getenv("DB_HOST")
-DB_NAME = os.getenv("DB_NAME")
-
-# This is the 'engine' variable the error was looking for
-DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
-
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# Add this line - this is what models.py is looking for
 Base = declarative_base()
+
+user = os.getenv("DB_USER")
+password = os.getenv("DB_PASS")
+db_name = os.getenv("DB_NAME")
+host = os.getenv("DB_HOST")
+
+if host and host.startswith('/cloudsql'):
+    db_url = f"mysql+pymysql://{user}:{password}@/{db_name}?unix_socket={host}"
+else:
+    local_host = host if host else "127.0.0.1"
+    db_url = f"mysql+pymysql://{user}:{password}@{local_host}/{db_name}"
+
+engine = create_engine(db_url, pool_pre_ping=True)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
