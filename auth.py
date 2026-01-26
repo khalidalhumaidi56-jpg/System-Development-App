@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
+from nosql_db import log_activity
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from models import User
@@ -26,7 +27,8 @@ def register():
         db.add(new_user)
         db.commit()
         db.close()
-        
+        # Log account creation activity
+        log_activity(email, "ACCOUNT_CREATED", email)
         flash('Account created! Please login.', 'success')
         return redirect(url_for('auth.login'))
         
