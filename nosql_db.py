@@ -33,4 +33,4 @@ def log_activity(user_email: str, action: str, item_title: str):
         ds_client.put(entity)
         print(f"✅ Activity logged to Datastore: {action} - {item_title}")
     except Exception as e:
-        print(f"❌ Failed to log to Datastore: {e}. Skipping activity log.")
+        print(f"Failed to log to Datastore: {e}. Skipping activity log.")
