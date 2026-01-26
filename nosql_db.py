@@ -5,6 +5,7 @@ from google.cloud import datastore
 
 load_dotenv()
 
+
 PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT") or os.getenv("GCLOUD_PROJECT")
 ds_client = datastore.Client(project=PROJECT_ID)
 
